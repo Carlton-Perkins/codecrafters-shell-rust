@@ -10,9 +10,11 @@ fn main() {
 
         let segments: Vec<_> = input.split_whitespace().collect();
         let command = segments[0];
+        let rest = &segments[1..];
 
         match command {
             "exit" => break,
+            "echo" => println!("{}", rest.join(" ")),
             _ => println!("{}: command not found", input),
         }
     }
