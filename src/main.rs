@@ -8,7 +8,13 @@ fn main() {
         // Wait for user input
         let input = get_user_input();
 
-        println!("{}: command not found", input);
+        let segments: Vec<_> = input.split_whitespace().collect();
+        let command = segments[0];
+
+        match command {
+            "exit" => break,
+            _ => println!("{}: command not found", input),
+        }
     }
 }
 
