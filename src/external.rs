@@ -9,8 +9,11 @@ pub struct ExternalCommand {
 }
 
 impl Command for ExternalCommand {
-    fn execute(&self, _args: &[&str]) -> Outcome {
-        println!("{} is {}", self.name, self.path.display());
+    fn execute(&self, args: &[&str]) -> Outcome {
+        std::process::Command::new(&self.name)
+            .args(args)
+            .status()
+            .unwrap();
 
         Outcome::default()
     }

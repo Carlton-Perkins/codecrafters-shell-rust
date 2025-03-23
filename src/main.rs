@@ -8,6 +8,7 @@ mod typ;
 #[allow(unused_imports)]
 use std::io::{self, Write};
 
+use builtins::register_builtins;
 use external::path_lookup;
 
 fn main() {
@@ -21,7 +22,7 @@ fn main() {
         let command = segments[0];
         let rest = &segments[1..];
 
-        let mut builtins = builtins::register_builtins();
+        let mut builtins = register_builtins();
         let builtin = builtins.remove(command);
 
         let mut command_to_run = builtin;
