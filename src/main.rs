@@ -1,5 +1,13 @@
+mod builtins;
+mod command;
+mod echo;
+mod exit;
+mod typ;
+
 #[allow(unused_imports)]
 use std::io::{self, Write};
+
+use command::Outcome;
 
 fn main() {
     loop {
@@ -12,10 +20,18 @@ fn main() {
         let command = segments[0];
         let rest = &segments[1..];
 
-        match command {
-            "exit" => break,
-            "echo" => println!("{}", rest.join(" ")),
-            _ => println!("{}: command not found", input),
+        let builtins = builtins::register_builtins();
+        let builtin = builtins.get(command);
+
+        let mut command_to_run = builtin;
+        if command_to_run.is_none() {
+            println!("{}: command not found", command);
+            continue;
+        }
+
+        let outcome = command_to_run.unwrap().execute(rest);
+        if outcome.exit {
+            break;
         }
     }
 }
