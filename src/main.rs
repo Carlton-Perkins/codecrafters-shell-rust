@@ -1,4 +1,5 @@
 mod builtins;
+mod cd;
 mod command;
 mod echo;
 mod exit;
