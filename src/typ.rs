@@ -1,5 +1,10 @@
-use crate::{builtins::register_builtins, command::Command};
+use crate::{
+    builtins::register_builtins,
+    command::Command,
+    external::{path_lookup, path_search},
+};
 
+#[derive(Clone)]
 pub struct Typ {}
 
 impl Command for Typ {
@@ -13,6 +18,8 @@ impl Command for Typ {
 
         if let Some(_) = builtins.get(command) {
             println!("{command} is a shell builtin");
+        } else if let Some(path) = path_search(command) {
+            println!("{} is {}", command, path.display())
         } else {
             println!("{command}: not found");
         }

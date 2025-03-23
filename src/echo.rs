@@ -1,5 +1,6 @@
 use crate::command::{Command, Outcome};
 
+#[derive(Clone)]
 pub struct Echo;
 
 impl Command for Echo {

@@ -1,3 +1,5 @@
 #!/bin/sh
 
-git push submit
+codecrafters submit
+
+git push origin master

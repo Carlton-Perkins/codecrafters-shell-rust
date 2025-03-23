@@ -2,12 +2,15 @@ mod builtins;
 mod command;
 mod echo;
 mod exit;
+mod external;
 mod typ;
 
+use std::collections::HashMap;
 #[allow(unused_imports)]
 use std::io::{self, Write};
 
-use command::Outcome;
+use command::{into_box, Command};
+use external::{path_lookup, ExternalCommand};
 
 fn main() {
     loop {
@@ -20,10 +23,16 @@ fn main() {
         let command = segments[0];
         let rest = &segments[1..];
 
-        let builtins = builtins::register_builtins();
-        let builtin = builtins.get(command);
+        let mut builtins = builtins::register_builtins();
+        let builtin = builtins.remove(command);
 
         let mut command_to_run = builtin;
+
+        let external = path_lookup(command);
+        if command_to_run.is_none() && external.is_some() {
+            command_to_run = external;
+        }
+
         if command_to_run.is_none() {
             println!("{}: command not found", command);
             continue;
