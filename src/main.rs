@@ -3,6 +3,7 @@ mod command;
 mod echo;
 mod exit;
 mod external;
+mod pwd;
 mod typ;
 
 #[allow(unused_imports)]

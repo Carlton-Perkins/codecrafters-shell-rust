@@ -4,6 +4,7 @@ use crate::{
     command::{into_box, Command},
     echo::Echo,
     exit::Exit,
+    pwd::Pwd,
     typ::Typ,
 };
 
@@ -13,6 +14,7 @@ pub fn register_builtins() -> HashMap<&'static str, Box<dyn Command>> {
     builtins.insert("echo", into_box(Echo {}));
     builtins.insert("exit", into_box(Exit {}));
     builtins.insert("type", into_box(Typ {}));
+    builtins.insert("pwd", into_box(Pwd {}));
 
     builtins
 }
