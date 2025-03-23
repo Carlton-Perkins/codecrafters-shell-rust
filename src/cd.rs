@@ -8,6 +8,14 @@ impl Command for Cd {
             return Outcome::error("cd: missing argument");
         };
 
+        // Only works for `simple` ~ cases
+        // not `~/Downloads` or complex interpolations
+        if dir == &"~" {
+            let home = std::env::var("HOME").unwrap();
+            std::env::set_current_dir(home).unwrap();
+            return Outcome::default();
+        }
+
         // Validate directory
         let Ok(_) = std::fs::read_dir(dir) else {
             println!("cd: {dir}: No such file or directory");
