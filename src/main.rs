@@ -5,12 +5,10 @@ mod exit;
 mod external;
 mod typ;
 
-use std::collections::HashMap;
 #[allow(unused_imports)]
 use std::io::{self, Write};
 
-use command::{into_box, Command};
-use external::{path_lookup, ExternalCommand};
+use external::path_lookup;
 
 fn main() {
     loop {

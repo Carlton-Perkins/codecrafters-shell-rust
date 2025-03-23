@@ -1,8 +1,4 @@
-use crate::{
-    builtins::register_builtins,
-    command::Command,
-    external::{path_lookup, path_search},
-};
+use crate::{builtins::register_builtins, command::Command, external::path_search};
 
 #[derive(Clone)]
 pub struct Typ {}
